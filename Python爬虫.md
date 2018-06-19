@@ -59,4 +59,14 @@ print(soup.text)#打印解析的内容
     	soup = BeautifulSoup(html_sample) # 用BeautifulSoup解析元素  
     	for link in soup.select('.link'):  
     		print(link)
+		```  
+	- 取值之余错误警告的处理  
+		- `html.parser`声明解析数据为html文件类型  
+		
+		``` python
+		from bs4 import  BeautifulSoup #导入bs4模块
+		a = "<a herf="#" qoo=123 abd=456> i am link</a>'
+		soup2 = BeautifulSoup(a,'html.parser')
+		print (soup2.select('a')[0])#只取出第一个 a标签的list
+		print (soup2.select('a')[0]['qoo'])#取出 a标签的名为qoo标签的1个元素
 		```
