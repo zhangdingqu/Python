@@ -53,7 +53,7 @@ print(soup.text)#打印解析的内容
     	header = soup.select('#title') #用header筛选title标签的内容
 		print(header)#打印解析的内容
 		```  
-		    	- 使用select 找出所有`class`为`link`的元素（class全面需加.） 
+		- 使用select 找出所有`class`为`link`的元素（class全面需加.） 
     	
     	```python   
     	soup = BeautifulSoup(html_sample) # 用BeautifulSoup解析元素  
