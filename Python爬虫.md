@@ -23,7 +23,40 @@ from bs4 import  BeautifulSoup #导入bs4模块
 print(soup.text)#打印解析的内容
 ```  
 - 找出所有含有特定标签的html元素  
-	- 使用select 找出含有h1标签的元素  
-	![Alt text](图/header.jpg)
+	- 使用`select` 找出含有`h1`标签的元素  
+	```python
+	soup = BeautifulSoup(html_sample) # 用BeautifulSoup解析元素  
+	header = soup.select('h1')#用header筛选h1标签的内容   
+	print(header)#打印解析内容的list列表
+	```  
 
-	
+    - 使用`select` 找出含有`a`标签的元素   
+    ```python
+	soup = BeautifulSoup(html_sample) # 用BeautifulSoup解析元素  
+	header = soup.select('a')#用header筛选h1标签的内容   
+	print(header)#打印解析内容的list列表
+	```  
+	- 使用`数组下标` 取出第一个含有`a`标签的元素   
+	```python
+	print(header[0])#打印解析内容的list列表的第一个元素  
+	print(header[0].text)#打印解析内容的list列表的第一个元素 的内容
+	```  
+	- 依次遍历取出标签里面的每个元素  
+	```python
+	for her in header:
+    	print (her.text)  
+    ```  
+    - 取得含有特定css属性的元素  
+    	- 使用select 找出所有`id`为`title`的元素（id全面需加#） 
+    	
+    	```python   
+    	header = soup.select('#title') #用header筛选title标签的内容
+		print(header)#打印解析的内容
+		```  
+		    	- 使用select 找出所有`class`为`link`的元素（class全面需加.） 
+    	
+    	```python   
+    	soup = BeautifulSoup(html_sample) # 用BeautifulSoup解析元素  
+    	for link in soup.select('.link'):  
+    		print(link)
+		```
