@@ -7,3 +7,6 @@
 - ~~Accept-Encoding: gzip, deflate, sdch~~  
 - Accept-Language: zh-CN,zh;q=0.8  
 - Cookie: __cfduid=d16656eb0a8f548c98810cb925a30dae91528560942; PHPSESSID=bs88fgck0pi7nnnmof5ahf1354  
+
+
+- 防止重定向 print response。geturl()#最终返回数据的是哪个网址  
