@@ -92,8 +92,9 @@ for y in range(0,int(ye)):
         f.save(u'E:\Python\我的Python\搜索%s结果.xls' % r2)
         i+=1
         yy += 1
-    driver.find_element_by_xpath('//*[@id="mainsrp-pager"]/div/div/div/ul/li[8]/a').click()  # 点击事件
+    driver.find_element_by_xpath('//*[@id="mainsrp-pager"]/div/div/div/div[2]/span[3]').click() # 点击事件
     yy = 1
+    r1+=1
     time.sleep(3)
     ActionChains(driver).move_to_element(driver.find_element_by_xpath('//*[@id="mainsrp-itemlist"]/div/div/div[1]/div[%s]/div[2]/div[3]/div[1]/a/span[1]' % yy)).perform()
 
