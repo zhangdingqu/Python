@@ -44,7 +44,7 @@ sheet01.write(0, 14, '物流服务比同行高低多少')
 sheet01.write(0, 15, '网址')
 print(driver.find_element_by_xpath('//*[@id="mainsrp-pager"]/div/div/div/div[1]').text)
 ye=input('要获取多少页？:')
-for y in range(1,int(ye)):
+for y in range(0,int(ye)):
     while yy<=int(44):
         ActionChains(driver).move_to_element(driver.find_element_by_xpath('//*[@id="mainsrp-itemlist"]/div/div/div[1]/div[%s]/div[2]/div[3]/div[1]/a/span[1]'%yy)).perform()
         time.sleep(1)
@@ -88,12 +88,10 @@ for y in range(1,int(ye)):
         sheet01.write(i, 13, 商品信息['物流服务比同行高低'])
         sheet01.write(i, 14, 商品信息['物流服务比同行高低多少'])
         sheet01.write(i, 15, 商品信息['网址'])
+        print('写入第%s页第%s个商品,一共下载了%s个商品' % (y+1,yy,i))
+        f.save(u'E:\Python\我的Python\搜索%s结果.xls' % r2)
         i+=1
         yy += 1
-        if int(yy)>44:
-            break
-        print('写入第%s页第%s个商品,一共下载了%s个商品' % (y,yy,i))
-        f.save(u'E:\Python\我的Python\搜索%s结果.xls' % r2)
     driver.find_element_by_xpath('//*[@id="mainsrp-pager"]/div/div/div/ul/li[8]/a').click()  # 点击事件
     yy = 1
     time.sleep(3)
@@ -102,3 +100,4 @@ for y in range(1,int(ye)):
     #保存
 # f.save(u'E:\Python\我的Python\搜索%s结果.xls'%rr)
 print('文件已经保存到E:\Python\我的Pyth文件夹')
+driver.close()
