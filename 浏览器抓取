@@ -9,9 +9,9 @@ WebDriverWait(driver,10000,1,NoSuchElementException).until(lambda driver:driver.
 print('登录成功')
 r2=input('请输入关键词：')
 driver.find_element_by_id('q').send_keys(r2)#输入事件]
-print('输入了门帘')
+print('输入了'+r2)
 driver.find_element_by_xpath('//div[@class="search-button"]//button[@class="btn-search tb-bg"]').click()#点击事件
-print('点击了搜索')
+#print('点击了搜索')
 time.sleep(1)#强制等待时间
 driver.find_element_by_xpath('//*[@id="J_relative"]/div[1]/div/ul/li[3]/a').click()#点击事件
 print('点击了按销量排序')
@@ -23,6 +23,7 @@ import xlwt
 DATA=[]
 i=1
 yy=1
+q=str(44)
 f = xlwt.Workbook(encoding='utf-8')
 sheet01 = f.add_sheet(u'sheet1', cell_overwrite_ok=True)
 # 写标题
@@ -92,9 +93,9 @@ for y in range(0,int(ye)):
         f.save(u'E:\Python\我的Python\搜索%s结果.xls' % r2)
         i+=1
         yy += 1
-    driver.find_element_by_xpath('//*[@id="mainsrp-pager"]/div/div/div/div[2]/span[3]').click() # 点击事件
+    driver.get('https://s.taobao.com/search?q=%E6%A1%8C%E5%B8%83&imgfile=&commend=all&ssid=s7-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.1&ie=utf8&initiative_id=tbindexz_20170306&sort=sale-desc&bcoffset=0&p4ppushleft=%2C44&s=132&data-key=s&data-value='+q)
     yy = 1
-    r1+=1
+    q=str(int(44+int(q)))
     time.sleep(3)
     ActionChains(driver).move_to_element(driver.find_element_by_xpath('//*[@id="mainsrp-itemlist"]/div/div/div[1]/div[%s]/div[2]/div[3]/div[1]/a/span[1]' % yy)).perform()
 
