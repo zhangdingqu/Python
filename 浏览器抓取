@@ -93,7 +93,7 @@ for y in range(0,int(ye)):
         f.save(u'E:\Python\我的Python\搜索%s结果.xls' % r2)
         i+=1
         yy += 1
-    driver.get('https://s.taobao.com/search?q=%E6%A1%8C%E5%B8%83&imgfile=&commend=all&ssid=s7-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.1&ie=utf8&initiative_id=tbindexz_20170306&sort=sale-desc&bcoffset=0&p4ppushleft=%2C44&s=132&data-key=s&data-value='+q)
+    driver.get('https://s.taobao.com/search?q='+r2+'&imgfile=&commend=all&ssid=s7-e&search_type=item&sourceId=tb.index&spm=a21bo.2017.201856-taobao-item.1&ie=utf8&initiative_id=tbindexz_20170306&sort=sale-desc&bcoffset=0&p4ppushleft=%2C44&s=132&data-key=s&data-value='+q)
     yy = 1
     q=str(int(44+int(q)))
     time.sleep(3)
