@@ -1,0 +1,29 @@
+# -*- coding: utf-8 -*-
+# @Time    : 2018年6月27日 0027 23:29
+# @Author  : Mat
+# @Email   : mat_wu@163.com
+# @File    : 百度图像识别OCR.py
+# @Software: PyCharm
+from aip import AipOcr
+
+APP_ID = 'xxxxx'
+API_KEY = 'xxxxx'
+SECRET_KEY = 'xxxxx '
+client = AipOcr(APP_ID, API_KEY, SECRET_KEY)
+
+
+""" 读取图片 """
+def get_file_content(filePath):
+    with open(filePath, 'rb') as fp:
+        return fp.read()
+
+image = get_file_content("E:\Python\我的Python\/1.jpg")
+
+""" 调用通用文字识别, 图片为远程url图片 """
+#res=client.basicGeneralUrl(url);
+
+""" 调用通用文字识别, 图片为本地图片 """
+res=client.general(image)
+#print(res)
+for i in res['words_result']:
+    print(i['words'])
