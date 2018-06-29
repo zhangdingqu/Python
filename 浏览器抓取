@@ -3,7 +3,7 @@ from selenium import webdriver#驅動下載http://npm.taobao.org/mirrors/chromed
 import time
 from selenium.webdriver.support.ui  import WebDriverWait
 from selenium.common.exceptions import NoAlertPresentException,TimeoutException,NoSuchElementException
-driver= webdriver.Chrome()#实例一个chrome浏览器
+driver= webdriver.Chrome("C:/Program Files (x86)/Google/Chrome/Application/chromedriver.exe")#实例一个chrome浏览器,并指定驅動路徑
 driver.get('https://login.taobao.com/member/login.jhtml?redirectURL=https%3A%2F%2Fwww.taobao.com%2F')#打开网址
 WebDriverWait(driver,10000,1,NoSuchElementException).until(lambda driver:driver.find_element_by_class_name('member-column-4'))#等待事件
 print('登录成功')
