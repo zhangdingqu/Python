@@ -1,5 +1,5 @@
-import webbrowser
-from selenium import webdriver
+import webbrowser#瀏覽器是66.0.3359.139版本，下載地址：https://dl.lancdn.com/landian/software/chrome/m/?utm_sources=DownPageBot
+from selenium import webdriver#驅動下載http://npm.taobao.org/mirrors/chromedriver/，驅動對照表http://www.cnblogs.com/shmily2018/p/9216776.html
 import time
 from selenium.webdriver.support.ui  import WebDriverWait
 from selenium.common.exceptions import NoAlertPresentException,TimeoutException,NoSuchElementException
