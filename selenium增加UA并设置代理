@@ -1,0 +1,8 @@
+from selenium import webdriver
+ua='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36'
+options=webdriver.ChromeOptions()
+options.add_argument('user-agent='+ ua)
+options.add_argument("--proxy-server=http://49.67.67.54:3197")
+driver=webdriver.Chrome(options=options)
+driver.get('http://httpbin.org/user-agent')
+driver.get("http://httpbin.org/ip")
