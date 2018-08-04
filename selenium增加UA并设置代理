@@ -29,10 +29,14 @@ def 查看地址(a):
     if a==0:
         driver = webdriver.Chrome(options=options)
         response=driver.get('http://ip.chinaz.com/getip.aspx')
+        address=re.findall('address:\'(.*?)\'\}',driver.page_source)
+        print('当前IP地址为:',address[0])
     else:
         options.add_argument("--proxy-server=http://%s" % IP())
         driver = webdriver.Chrome(options=options)
         response = driver.get('http://ip.chinaz.com/getip.aspx')
+        address = re.findall('address:\'(.*?)\'\}', driver.page_source)
+        print('当前IP地址为:', address[0])
     return response
-查看地址(0)
+查看地址(1)
 driver.get('http://www.baidu.com')
