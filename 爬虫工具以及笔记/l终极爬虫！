@@ -1,0 +1,240 @@
+from selenium import webdriver
+import requests,re
+from selenium import webdriver
+import requests,re
+import time,xlwt
+from selenium.webdriver import ActionChains
+from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+ua='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/66.36'
+options=webdriver.ChromeOptions()
+options.add_argument('user-agent='+ ua)
+ua='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/66.36'
+options=webdriver.ChromeOptions()
+options.add_argument('user-agent='+ ua)
+a=0
+pge=1
+list2=0
+
+#===============================================
+# 写标题
+f = xlwt.Workbook(encoding='utf-8')
+sheet01 = f.add_sheet(u'sheet1', cell_overwrite_ok=True)
+sheet01.write(0, 0, '标题')
+sheet01.write(0, 1, '价格')
+sheet01.write(0, 2, '主图')
+sheet01.write(0, 3, '设计图')
+sheet01.write(0, 4, '设计者')
+sheet01.write(0, 5, '商品链接')
+sheet01.write(0, 6, 'txt文件获取的分类链接')
+#===============================================
+n=0
+lis=1
+def 取内容(i):
+    global n,lis
+    #先判断这一页是不是能抓
+    print(i-1)
+    if int(i)>=61:
+        return
+    else:
+        try:
+            content1 = driver.find_element_by_css_selector(
+                '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s)' % str(
+                    i))
+            ActionChains(driver).move_to_element(content1).perform()
+        except:
+            print('这一页抓完了')
+            return
+      # 先判断这一页是不是能抓结束
+    try:
+        content = driver.find_element_by_css_selector(
+            '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-realviewContainer > a > div > div > img' % str(
+                i))
+        ActionChains(driver).move_to_element(content).perform()
+        driver.find_element_by_css_selector(
+            '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-realviewContainer > a > div > div > img' % str(
+                i))
+        # 获取到的内容
+        try:
+            主图 = driver.find_element_by_css_selector(
+                '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-realviewContainer > a > div > img' % str(
+                    i)).get_attribute("src")
+        except:
+            主图 = ""
+        try:
+            标题 = driver.find_element_by_css_selector(
+                '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-info > a > span' % str(
+                    i)).text
+        except:
+            标题 = ""
+        try:
+            价格 = driver.find_element_by_css_selector(
+                '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-info > div.SearchResultsGridCell-price > meta:nth-child(2)' % str(
+                    i)).get_attribute("content")
+        except:
+            价格 = ""
+        try:
+            设计者 = driver.find_element_by_css_selector(
+                '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-realviewContainer > div.SearchResultsGridCell-storeInfo > span' % str(
+                    i)).text
+        except:
+            设计者 = ""
+        try:
+            设计图 = driver.find_element_by_css_selector(
+                '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-realviewContainer > a > div > div > img' % str(
+                    i)).get_attribute("src")
+        except:
+            设计图 = ""
+        try:
+            商品链接 = driver.find_element_by_css_selector(
+            '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchResults > div > div:nth-child(%s) > div.SearchResultsGridCell-absolutePositionedContainer > div.SearchResultsGridCell-realviewContainer > a'%str(
+                i)).get_attribute("href")
+        except:
+            商品链接=""
+        a = {'标题': 标题, '价格': 价格, '主图': 主图, '设计图': 设计图, '设计者': 设计者,'商品链接': 商品链接}
+        sheet01.write(lis, 0, a['标题'])
+        sheet01.write(lis, 1, a['价格'])
+        sheet01.write(lis, 2, a['主图'])
+        sheet01.write(lis, 3, a['设计图'])
+        sheet01.write(lis, 4, a['设计者'])
+        sheet01.write(lis, 5, a['商品链接'])
+        sheet01.write(lis, 6, url)
+        print('抓取第%s个商品'%lis)
+        f.save('抓取的文件.xls')
+        lis=lis+1
+    except:
+        print('抓取内容部分没定位到，正在重新触摸')
+        try:
+            n=n+1
+            if n<10:
+                print('取内容部分出了异常，正在重试%s次'%str(n))
+                return 取内容(i)
+            else:
+                print('网页出现异常，尝试重新加载！')
+                driver.quit()
+                time.sleep(5)
+                driver.get(url)
+                if 'Access' in driver.title:
+                    driver.quit()
+                    time.sleep(2)
+                    driver.get(url)
+                return 取内容(i)
+        except:
+            global next_1
+            next_1=1
+            print('抓完了，进行下一页的抓取吧！')
+            return
+
+
+def IP():
+    txt = open(r"E:\Python目录\API.txt")
+    api_url = txt.read()
+    response=requests.get(api_url).text
+    try:
+        ip = re.findall('\{.*"ip":"(.*?)","port":(.*?)\}\]\}', response)[0]
+        IPP = ip[0] + ':' + ip[1]
+        return IPP
+    except:
+        print(response)
+def 查看地址(a):
+    try:
+        global driver
+        if a==0:
+            driver = webdriver.Chrome(options=options)
+            response=driver.get('http://ip.chinaz.com/getip.aspx')
+            address=re.findall('address:\'(.*?)\'\}',driver.page_source)
+            print('当前IP地址为:',address[0])
+        else:
+            options.add_argument("--proxy-server=http://%s" % IP())
+            driver = webdriver.Chrome(options=options)
+            response = driver.get('http://ip.chinaz.com/getip.aspx')
+            address = re.findall('address:\'(.*?)\'\}', driver.page_source)
+            print('当前IP地址为:', address[0])
+        return response
+    except IndexError:
+        print('查询IP失败，正在重试')
+        driver.quit()
+        return 查看地址(a)
+
+
+#抓取开始======判断网址里面是不是有货，通过title判断=======
+def panduan():
+    if driver.title=='Page not found':
+        print('词网址已失效，正在进行下一个的抓取')
+    elif 'Zazzle' in driver.title:
+        print('网页已经正确打开')
+    else:
+        print("没有正确打开网站正在重试")
+        查看地址(1)
+        driver.get(url)
+        return panduan()
+#=============翻页操作===========================
+p=1
+def 翻页():
+    print('正在进行翻页')
+    global 末页, pge
+    try:
+        next = WebDriverWait(driver, 300).until(
+                    EC.presence_of_element_located((By.CSS_SELECTOR, "#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchPage-bottomPagination > div > a.SearchPagination-next")))
+        pge = driver.find_element_by_css_selector(
+            '#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchPage-bottomPagination > div > a.SearchPagination-pageNum.SearchPagination-currentPageNum').text
+        if next.text=='Next':
+            next.click()
+            try:
+                while True:
+                    print('网页加载中...')
+                    time.sleep(3)
+                    driver.find_element_by_css_selector('#main > div > div.Page > div.SearchPage.GAContext-Search > span > div > div')
+                    p=p+1
+                    if p>10:
+                        driver.get(url+"&pg="+str(pge+1))
+                        p=0
+            except:
+                print('当前是第',pge,'页')
+                末页 = 0
+                return 末页
+        else:
+            print("已经是末页了")
+            末页=1
+            return 末页
+    except:
+        try:
+            next = WebDriverWait(driver, 300).until(
+                EC.presence_of_element_located((By.CSS_SELECTOR,
+                                                "#main > div > div.Page > div.SearchPage.GAContext-Search > div.SearchPage-bottomPagination > div > a.SearchPagination-next")))
+            print('网页出现异常，尝试重新加载！')
+            查看地址(1)
+            driver.get(url + "&pg=" + str(int(pge) + 1))
+        except:
+            print('没有下一页了准备翻页')
+            return 翻页()
+#================可抓取网站=======================
+txt = open(r"E:\Python目录\URL.txt")
+i=1
+查看地址(1)#0是不使用代理，1是使用代理
+while True:
+    next_1=0
+    末页 = 0
+    txt_1=True
+    while txt_1==True:
+        try:
+            driver.get(url)
+            url=txt.readline()
+            txt_1=False
+        except:
+            print('txt文件网址不正确，正在读取下一行')
+            url = txt.readline()
+            txt_1 = True
+    print(driver.title)
+    panduan()#一直判断到网页标题包含【Zazzle】为止
+    #=抓取=====
+    while 末页==0:
+        for i in range (2,62):
+            取内容(i)
+            if next_1==1 or i>=61:
+                翻页()
+                next_1=0
+    print('开始抓取txt文件里面的下一个了')
