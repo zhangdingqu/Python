@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="48327083-5061-4810-815d-a5c773ef8bca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/demo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../暂时可用的Python程序/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../暂时可用的Python程序/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="48327083-5061-4810-815d-a5c773ef8bca" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,9 +74,9 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="369" />
-    <option name="y" value="63" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="586" />
+    <option name="y" value="105" />
     <option name="width" value="1893" />
     <option name="height" value="1166" />
   </component>
