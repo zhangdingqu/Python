@@ -1,4 +1,3 @@
-```python
 #coding=utf-8
 from selenium import webdriver
 import requests
@@ -9,5 +8,3 @@ options.add_argument("--proxy-server=http://118.254.113.92:4283")#添加浏览�
 driver=webdriver.Chrome(options=options)#实例化浏览器对象 deiver
 driver.get('http://www.baidu.com')#请求网页
 driver.close()#关闭浏览器
-```
-
