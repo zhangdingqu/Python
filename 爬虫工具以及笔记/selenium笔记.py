@@ -13,8 +13,7 @@ driver.get('http://www.taobao.com')
 my_input=driver.find_element(By.CSS_SELECTOR,'div.search-combobox-input-wrap > input')#获取到输入框
 my_input.clear()#清除输入框默认值
 my_input.send_keys('棉被')#输入框输入棉被
-my_button=driver.find_element(By.CSS_SELECTOR,'button.btn-search.tb-bg')#获取搜索按钮
-my_button.click()#点击搜索按钮
+driver.find_element(By.CSS_SELECTOR,'button.btn-search.tb-bg').click()#点击搜索按钮
 
 grids1=driver.find_element(By.CSS_SELECTOR,'div.grid.g-clearfix>div')
 #获取单个产品的信息[第一部分]
@@ -158,12 +157,26 @@ item_active=int(driver.find_element(By.CSS_SELECTOR,'div.inner.clearfix >ul> li.
     print(driver.find_element_by_css_selector('div.grid.g-clearfix>div>div>div:nth-child(2)').get_attribute('class')) # div:nth-child(3)元素下面的第三个儿子
     print(driver.find_element_by_css_selector('div.grid.g-clearfix>div>div>div+div').get_attribute('class')) # div+div元素下面的第二个儿子
 
+
+多属性开头结尾特征选择器：
+源码：
+    <div id="ks-component902" class="srp-popup srp-overlay srp-popup-hidden srp-overlay-hidden" style="left: 403px; top: 4134px; display: block;">
+    
+语法：
+
+print(driver.find_element(By.CSS_SELECTOR,'div[class^="srp-popup srp-overlay"]').get_attribute('class')) #查找class开头为srp-popup的元素
+print(driver.find_element(By.CSS_SELECTOR,'div[class$="srp-overlay-hidden"]').get_attribute('class')) #查找class末尾为srp-overlay-hidden的元素
+print(driver.find_element(By.CSS_SELECTOR,'div[class*="srp-popup-hidden"]').get_attribute('class')) #查找包含srp-popup-hidden的class元素
+
+
 用js改变代码属性：
 源码：
     <input id="kw" name="wd" class="s_ipt" value="" maxlength="255" autocomplete="off" style="border: 2px solid red;">
 语法：
-    js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"#前部分是定位目标，后部分是修改目标的属性
+    js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"   #前部分是定位目标，后部分是修改目标的属性
     driver.execute_script(js) # 执行上面的修改
+    
+    js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"
 
 '''
 
