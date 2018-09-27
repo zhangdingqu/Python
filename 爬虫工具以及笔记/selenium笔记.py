@@ -42,6 +42,26 @@ for i in grids1.find_elements_by_css_selector('div[data-category="auctions"]'):
     #还有触摸后ajax数据没有获取
     ActionChains(driver).move_to_element(chats).perform()
 
+    #获取当前随机ID值，并且展开等级框
+    Random_ID = driver.find_element(By.CSS_SELECTOR, 'div[class^="srp-popup srp-overlay"]').get_attribute('id')  # 查找随机ID是多少
+    js = "var div = document.getElementById(\"" + Random_ID + "\");div.className = 'srp-popup srp-overlay';"  # 用JS更改class值
+    driver.execute_script(js)  # 执行js脚本
+
+    #合并实现展开店铺等级框
+    chats = i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div>a>span+span')
+    ActionChains(driver).move_to_element(chats).perform()
+    Random_ID = driver.find_element(By.CSS_SELECTOR, 'div[class^="srp-popup srp-overlay"]').get_attribute(
+        'id')  # 查找随机ID是多少
+    js = "var div = document.getElementById(\"" + Random_ID + "\");div.className = 'srp-popup srp-overlay';"  # 用JS更改class值
+    driver.execute_script(js)  # 执行js脚本
+
+        #定位等级框内部的元素
+        ranks=driver.find_elements_by_css_selector('a.ranks>span')[0].get_attribute('class') #等级集合 'icon icon-supple-level-zuan'
+        rate=driver.find_elements_by_css_selector('a.ranks+span')[0].text #好评率：99.47%
+
+        print(driver.find_element(By.CSS_SELECTOR,'div.m-widget-shopinfo>div+div').text.replace('\n',',').replace('：',',').split(','))
+        #['如实描述', '4.88', '比同行均值高', '0.92%', '服务态度', '4.89', '比同行均值高', '28.66%', '物流服务', '4.87', '比同行均值高', '17.58%']
+
 
 #获取单个产品的信息[第二部分]
 grids2=driver.find_elements(By.CSS_SELECTOR,'div.items#J_itemlistPersonality div>div.item.J_MouserOnverReq')
@@ -175,8 +195,14 @@ print(driver.find_element(By.CSS_SELECTOR,'div[class*="srp-popup-hidden"]').get_
 语法：
     js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"   #前部分是定位目标，后部分是修改目标的属性
     driver.execute_script(js) # 执行上面的修改
+
+taob成功语法：[注意先打印js脚本没问题后再试]
+
+    js="var div = document.getElementById('ks-component945');div.className = 'abc';"
+    driver.execute_script(js)
     
-    js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"
+    js = "var div = document.getElementById(\"" + Random_ID + "\");div.className = 'hahaha';"#用JS更改class值
+    driver.execute_script(js) #执行js脚本
 
 '''
 
