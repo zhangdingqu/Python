@@ -2,6 +2,8 @@ import selenium
 from selenium import webdriver
 import re
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
+
 ua='Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/66.36'
 options=webdriver.ChromeOptions()#实例化一个web浏览器对象[选项] 带参数启动
 options.add_argument('user-agent='+ ua)#添加浏览器UA
@@ -21,16 +23,25 @@ for i in grids1.find_elements_by_css_selector('div[data-category="auctions"]'):
     #print(i.find_element_by_css_selector('div.ctx-box').get_attribute('class')) #获取到ctx-box部分
     money = i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div>strong').text # 价格
     people_Number=i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div+div').text  # 付款人数
-    href = (i.find_element_by_css_selector('div.ctx-box>div.title>a').get_attribute('href'))  # 链接
     title = (i.find_element_by_css_selector('div.ctx-box>div.title>a').text)  # 标题
     shop_url = (i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div>a').get_attribute('href'))  # 店铺首页
     for ii in i.find_elements_by_css_selector('div.ctx-box>div.g-clearfix>div>a>span.dsrs>span'):
         print(ii.get_attribute('class'))#dsr评分
-    chats = (i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div>a>span+span').text)  # 旺旺ID
+
+    #判断是不是天猫
+    href = (i.find_element_by_css_selector('div.ctx-box>div.title>a').get_attribute('href'))  # 链接
+    if 'detail.tmall.com' in href:
+        print('天猫')
+    else:
+        print('淘宝')
+
+    chats_txt = (i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div>a>span+span').text)  # 旺旺ID
+    chats=i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div>a>span+span')
     location = (i.find_element_by_css_selector('div.ctx-box>div.g-clearfix>div.location').text)  # 发货地
     for iii in i.find_elements_by_css_selector('div.ctx-box>div.g-clearfix>div>ul>li'):
         print(iii.find_element_by_css_selector('span').get_attribute('class')) #开通的服务
     #还有触摸后ajax数据没有获取
+    ActionChains(driver).move_to_element(chats).perform()
 
 
 #获取单个产品的信息[第二部分]
@@ -146,6 +157,14 @@ item_active=int(driver.find_element(By.CSS_SELECTOR,'div.inner.clearfix >ul> li.
 兄弟选择器：
     print(driver.find_element_by_css_selector('div.grid.g-clearfix>div>div>div:nth-child(2)').get_attribute('class')) # div:nth-child(3)元素下面的第三个儿子
     print(driver.find_element_by_css_selector('div.grid.g-clearfix>div>div>div+div').get_attribute('class')) # div+div元素下面的第二个儿子
+
+用js改变代码属性：
+源码：
+    <input id="kw" name="wd" class="s_ipt" value="" maxlength="255" autocomplete="off" style="border: 2px solid red;">
+语法：
+    js="var q=document.getElementById(\"kw\");q.style.border=\"2px solid red\";"#前部分是定位目标，后部分是修改目标的属性
+    driver.execute_script(js) # 执行上面的修改
+
 '''
 
 
