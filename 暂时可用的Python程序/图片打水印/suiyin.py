@@ -11,6 +11,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
 from Ui_suiyin import Ui_MainWindow, jwkj_get_filePath_fileName_fileExt
 from gevent import os
+import re
 
 
 save=False
@@ -57,6 +58,15 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         jpg = QtGui.QPixmap(img_list).scaled(self.label_8.width(), self.label_8.height())
         self.label_8.setPixmap(jpg)
         水印文字 = jwkj_get_filePath_fileName_fileExt(img_list)[1].replace(' ', '')
+        pp = re.findall(r'_\d+', 水印文字)
+        if len(pp) == 0:
+            水印文字 = 水印文字.replace('\"', '')
+        else:
+            pp_int = len(pp)
+            水印文字 = 水印文字.replace('\"', '').replace(pp[pp_int - 1],'')  # 用正则表达式去除_3.jpg
+
+
+
         file = img_list.replace('\\', '/')
         Round_picture = self.lineEdit_2.text().replace('\\', '/').replace('\"', '')
         Square_picture = self.lineEdit.text().replace('\\', '/').replace('\"', '')
@@ -116,12 +126,13 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         imlis=self.textBrowser.toPlainText().split('\n')
         a_nob=1
         for i in imlis:
+            save = True
             self.progressBar.setValue(a_nob/len(imlis)*100)
             img_url=i.replace('\"', '')
             self.dashuiyin(img_url)
             jpg = QtGui.QPixmap(r'a.png').scaled(self.label_8.width(), self.label_8.height())
             self.label_8.setPixmap(jpg)
-            save=True
+            # save=True
             self.textBrowser_2.append(str('正在处理'+i))
             # print('正在处理',i)
             sys.stdout.flush()#系统标准刷新率
