@@ -1,3 +1,3 @@
 MySOL下载地址：
 
-https://cdn.mysql.com//Downloads/MySQLInstaller/mysql-installer-community-8.0.12.0.msi
+https://cdn.mysql.com//Downloads/MySQL-8.0/mysql-8.0.12-winx64.zip
