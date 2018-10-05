@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<settingsParameters>
+	<childrenFile>0</childrenFile>
+	<backgroundWidth>850</backgroundWidth>
+	<backgroundHeight>1250</backgroundHeight>
+	<backgroundColor>FFFFFF</backgroundColor>
+	<backgroundAlpha>100</backgroundAlpha>
+	<pictureNumber>2</pictureNumber>
+	<pictureMerge>0</pictureMerge>
+	<pictureDistribution>1</pictureDistribution>
+	<elsePictureSetter>1</elsePictureSetter>
+	<saveFormat>JPG</saveFormat>
+	<saveQuality>100</saveQuality>
+	<saveDelete>0</saveDelete>
+	<namedPrefix>picture_</namedPrefix>
+	<namedSuffix>0</namedSuffix>
+	<windowX>-99999</windowX>
+	<windowY>-99999</windowY>
+</settingsParameters>
